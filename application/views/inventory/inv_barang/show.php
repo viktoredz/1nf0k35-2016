@@ -12,37 +12,37 @@
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterHAPUS')=='')){ ?>
 									$("#kibA").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){ ?>
-									$("#hapusA").click());
+									$("#hapusA").click();
 						<?php   }	?>
 				    <?php	}else if($filter_golongan_invetaris=='0200000000'){ 
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterHAPUS')=='')){?>
 									$("#kibB").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){?>
-									$("#hapusB").click());
+									$("#hapusB").click();
 						<?php   }?>		
 				    <?php	}else if($filter_golongan_invetaris=='0300000000'){ 
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterHAPUS')=='')){	?>
 									$("#kibC").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){?>
-									$("#hapusC").click());
+									$("#hapusC").click();
 						<?php   }	?>
 				    <?php	}else if($filter_golongan_invetaris=='0400000000'){ 
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterHAPUS')=='')){?>
 									$("#kibD").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){?>
-									$("#hapusD").click());
+									$("#hapusD").click();
 						<?php   }	?>
 				    <?php	}else if($filter_golongan_invetaris=='0500000000'){ 
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterHAPUS')=='')){?>
 									$("#kibE").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){?>
-									$("#hapusE").click());
+									$("#hapusE").click();
 						<?php   }	?>
 				    <?php	}else if($filter_golongan_invetaris=='0600000000'){ 
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterGIB')=='')){?>
 									$("#kibF").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){?>
-									$("#hapusF").click());
+									$("#hapusF").click();
 						<?php   }	
 			    			}	 
 						} 

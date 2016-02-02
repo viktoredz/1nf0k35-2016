@@ -343,27 +343,14 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('puskes') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('puskes'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
 
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}
 		$rows_all = $this->inv_barang_model->get_data_golongan_B();
 		
-		
-
-
 		if($_POST) {
 			$fil = $this->input->post('filterscount');
 			$ord = $this->input->post('sortdatafield');
@@ -389,22 +376,12 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('puskes') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('puskes'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
 
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}
 		$rows = $this->inv_barang_model->get_data_golongan_B();
 		$no=1;
 		$data_tabel = array();
@@ -512,22 +489,11 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('puskes') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('puskes'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
-
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}
 		$rows_all = $this->inv_barang_model->get_data_golongan_C();
 
 
@@ -557,22 +523,11 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('puskes') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('puskes'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
-
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}
 		$rows = $this->inv_barang_model->get_data_golongan_C();
 		$no=1;
 		$data_tabel = array();
@@ -681,22 +636,11 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('puskes') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('puskes'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
-
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}
 		$rows_all = $this->inv_barang_model->get_data_golongan_D();
 
 
@@ -725,24 +669,13 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('puskes') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('puskes'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
-
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}
-		$no=1;
 		$rows = $this->inv_barang_model->get_data_golongan_D();
+		$no=1;
 		$data_tabel = array();
 		foreach($rows as $act) {
 			$data_tabel[] = array(
@@ -845,22 +778,11 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('puskes') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('puskes'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
-
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}
 		$rows_all = $this->inv_barang_model->get_data_golongan_E();
 		
 
@@ -890,22 +812,11 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('puskes') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('puskes'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
-
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}
 		$rows = $this->inv_barang_model->get_data_golongan_E();
 		$no=1;
 		$data_tabel = array();
@@ -1013,22 +924,11 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('puskes') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('puskes'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
-
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}
 		$rows_all = $this->inv_barang_model->get_data_golongan_F();
 		
 
@@ -1058,22 +958,11 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('puskes') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('puskes'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
-
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}
 		$rows = $this->inv_barang_model->get_data_golongan_F();
 		$no=1;
 		$data_tabel = array();
