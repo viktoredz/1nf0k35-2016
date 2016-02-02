@@ -53,12 +53,30 @@ class Inv_barang_model extends CI_Model {
         return $query->result();
     }
     function get_data_golongan_A($start=0,$limit=999999,$options=array()){
-        if($this->session->userdata('filterHAPUS')==''){
-            $view = "kiba_";
+        if($this->input->post('filter_tanggal') != '') {
+            $date = $this->input->post('filter_tanggal');
         }else{
-            $view = "kiba_hapus";
+            $date = date("Y-m-d");
         }
-        $query = $this->db->get($view,$limit,$start);
+
+        if($this->session->userdata('filterHAPUS')==''){
+            $qr = " * FROM (SELECT * FROM kiba where (`id_inventaris_distribusi` , `barang_kembar_proc`) IN     
+                (SELECT MAX(`id_inventaris_distribusi`), `barang_kembar_proc`
+                FROM kiba where tgl_distribusi < '".$date."'
+                GROUP BY `barang_kembar_proc`) ) as a ";
+                $this->db->where("isnull(`tanggal_dihapus`)  OR `tanggal_dihapus` >= '".$date."' ");
+            $this->db->select($qr,false);
+            $query = $this->db->get();
+        }else{
+            $qr = " * FROM (SELECT * FROM kiba where (`id_inventaris_distribusi` , `barang_kembar_proc`) IN     
+                (SELECT MAX(`id_inventaris_distribusi`), `barang_kembar_proc`
+                FROM kiba where tgl_distribusi < '".$date."'
+                GROUP BY `barang_kembar_proc`) ) as a ";
+                $this->db->where("`tanggal_dihapus` <= '".$date."' ");
+            $this->db->select($qr,false);
+            $query = $this->db->get();
+        }
+
         return $query->result();
     }
     function get_data_golongan_B($start=0,$limit=999999,$options=array()){

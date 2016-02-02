@@ -10,39 +10,39 @@
 		    <?php	}else  if(isset($filter_golongan_invetaris)){
 				    		if($filter_golongan_invetaris=='0100000000'){ 
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterHAPUS')=='')){ ?>
-									$("#jqxgrid_Golongan_A").jqxGrid('updatebounddata', 'cells');
+									$("#kibA").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){ ?>
-									$("#jqxgrid_Golongan_A_hapus").jqxGrid('updatebounddata', 'cells');
+									$("#hapusA").click());
 						<?php   }	?>
 				    <?php	}else if($filter_golongan_invetaris=='0200000000'){ 
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterHAPUS')=='')){?>
-									$("#jqxgrid_Golongan_B").jqxGrid('updatebounddata', 'cells');
+									$("#kibB").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){?>
-									$("#jqxgrid_Golongan_B_hapus").jqxGrid('updatebounddata', 'cells');
+									$("#hapusB").click());
 						<?php   }?>		
 				    <?php	}else if($filter_golongan_invetaris=='0300000000'){ 
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterHAPUS')=='')){	?>
-									$("#jqxgrid_Golongan_C").jqxGrid('updatebounddata', 'cells');
+									$("#kibC").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){?>
-									$("#jqxgrid_Golongan_C_hapus").jqxGrid('updatebounddata', 'cells');
+									$("#hapusC").click());
 						<?php   }	?>
 				    <?php	}else if($filter_golongan_invetaris=='0400000000'){ 
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterHAPUS')=='')){?>
-									$("#jqxgrid_Golongan_D").jqxGrid('updatebounddata', 'cells');
+									$("#kibD").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){?>
-									$("#jqxgrid_Golongan_D_hapus").jqxGrid('updatebounddata', 'cells');
+									$("#hapusD").click());
 						<?php   }	?>
 				    <?php	}else if($filter_golongan_invetaris=='0500000000'){ 
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterHAPUS')=='')){?>
-									$("#jqxgrid_Golongan_E").jqxGrid('updatebounddata', 'cells');
+									$("#kibE").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){?>
-									$("#jqxgrid_Golongan_E_hapus").jqxGrid('updatebounddata', 'cells');
+									$("#hapusE").click());
 						<?php   }	?>
 				    <?php	}else if($filter_golongan_invetaris=='0600000000'){ 
 				    			if(($this->session->userdata('filterGIB')!='')||($this->session->userdata('filterGIB')=='')){?>
-									$("#jqxgrid_Golongan_F").jqxGrid('updatebounddata', 'cells');
+									$("#kibF").click();
 						<?php 	}else if($this->session->userdata('filterHAPUS')!=''){?>
-									$("#jqxgrid_Golongan_F_hapus").jqxGrid('updatebounddata', 'cells');
+									$("#hapusF").click());
 						<?php   }	
 			    			}	 
 						} 

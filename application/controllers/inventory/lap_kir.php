@@ -170,7 +170,7 @@ class Lap_kir extends CI_Controller {
 	function index(){
 		$this->authentication->verify('inventory','edit');
 		$data['title_group'] 	= "Laporan";
-		$data['title_form'] 	= "Kartu Inventaris Ruangan";;
+		$data['title_form'] 	= "KIR - Kartu Inventaris Ruangan";;
 		$this->db->like('code','p'.substr($this->session->userdata('puskesmas'),0,7));
 
 		$kodepuskesmas = $this->session->userdata('puskesmas');

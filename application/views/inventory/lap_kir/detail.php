@@ -53,8 +53,7 @@
 							</div>
 						</div>
 						<div class="form-group pull-right">
-            				<button onClick="doExport();" type="button"  class="btn btn-warning">Export</button>
-            				<button type="button" class="btn btn-success" onClick="document.location.href='<?php echo base_url()?>inventory/inv_ruangan'">Kembali</button>
+            				<button onClick="doExport();" type="button"  class="btn btn-warning"><i class='fa fa-file-excel-o'></i> &nbsp; Export</button>
 						</div>
 				  	</div>
 				</div>
@@ -81,7 +80,6 @@
 		        data : 'code_cl_phc=' + code_cl_phc+'&id_mst_inv_ruangan=' + id_mst_inv_ruangan,
 		        success : function(data) {
 		          	$('#code_ruangan').html(data);
-					filter_ruangan();
         		}
 	    	});
 			
@@ -115,7 +113,6 @@
 						$("#view_ruang").html(d[1]);
 						$("#view_keterangan").html(d[2]);
 					}
-		          	//$("#jqxgrid_barang").jqxGrid('updatebounddata', 'cells');
 
 					$.ajax({
 						url : '<?php echo site_url('inventory/inv_ruangan/export_detail') ?>',
@@ -131,6 +128,4 @@
 	    	});
 	}
 	
-	function filter_ruangan(id_mst_inv_ruangan){
-	}
 </script>

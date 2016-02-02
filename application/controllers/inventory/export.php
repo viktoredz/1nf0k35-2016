@@ -195,22 +195,12 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('code_cl_phc') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('code_cl_phc'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
 
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}	
 		$rows_all = $this->inv_barang_model->get_data_golongan_A();
 
 		if($_POST) {
@@ -239,22 +229,12 @@ class Export extends CI_Controller {
 			$this->db->where("id_ruangan",$filter);
 		}
 
-		$kodepuskesmas = $this->session->userdata('puskesmas');
-		if(substr($kodepuskesmas, -2)=="01"){
-			if($this->session->userdata('filter_cl_phc') != ''){
-				$kodeplch = $this->session->userdata('filter_cl_phc');
-				$this->db->where("id_cl_phc",$kodeplch);
-			}
-		}else {
-			$this->db->where('id_cl_phc',"P".$this->session->userdata('puskesmas'));
+		if($this->input->post('puskes') != '') {
+			$this->db->where("id_cl_phc",$this->input->post('puskes'));
+		}else{
+			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
 
-		if($this->session->userdata('filterHAPUS') != ''){
-			$this->db->where("pilihan_status_invetaris","3");
-		}
-		if (($this->session->userdata('filterHAPUS') == '') ||($this->session->userdata('filterGIB') != '')) {
-				$this->db->where("pilihan_status_invetaris !=","3");
-			}
 		$rows = $this->inv_barang_model->get_data_golongan_A();
 		
 		$data_tabel = array();
