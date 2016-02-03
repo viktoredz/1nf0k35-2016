@@ -398,9 +398,10 @@ class Inv_ruangan extends CI_Controller {
 		$propinsi = $this->inv_barang_model->get_nama('value','cl_province','code',substr($kode, 1,2));
 		$kabkota  = $this->inv_barang_model->get_nama('value','cl_district','code',substr($kode, 1,4));
 		$kecamatan  = $this->inv_barang_model->get_nama('nama','cl_kec','code',substr($kode, 1,7));
-
+		$tanggals = explode("-",$tanggal);
+		$tanggal_export = $tanggals[2].'-'.$tanggals[1].'-'.$tanggals[0];
 		$data_puskesmas['puskesmas'] 	= $nama;
-		$data_puskesmas['tanggal'] 		= $tanggal;
+		$data_puskesmas['tanggal'] 		= $tanggal_export;
 		$data_puskesmas['ruangan'] 		= $namaruang;
 		$data_puskesmas['kecamatan'] 	= $kecamatan;
 		$data_puskesmas['kabkota'] 		= $kabkota;

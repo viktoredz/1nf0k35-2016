@@ -272,6 +272,7 @@ class Export extends CI_Controller {
 
 		$puskes = $this->input->post('puskes'); 
 		$ruang = $this->input->post('ruang'); 
+		$tanggal_export = $this->input->post('filter_tanggal'); 
 		if(empty($puskes) or $puskes == 'Pilih Puskesmas'){	
 				$kode='P '.$this->session->userdata('puskesmas');
 				$kd_prov = $this->inv_barang_model->get_nama('value','cl_province','code',substr($kode, 2,2));
@@ -291,7 +292,18 @@ class Export extends CI_Controller {
 		}else{
 			$namaruang = $this->input->post('ruang');
 		}
-		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb);
+		if(empty($ruang) or $ruang == 'Pilih Ruangan'){
+			$namaruang = 'Semua Data Ruangan';
+		}else{
+			$namaruang = $this->input->post('ruang');
+		}
+		if(empty($tanggal_export) or $tanggal_export == ''){
+			$tanggal_export = date('d-m-Y');
+		}else{
+			$tanggals = explode("-", $this->input->post('filter_tanggal'));
+			$tanggal_export = $tanggals[2].'-'.$tanggals[1].'-'.$tanggals[0];
+		}
+		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb,'tanggal_export'=>$tanggal_export);
 		$dir = getcwd().'/';
 		$template = $dir.'public/files/template/inventory/kiba.xlsx';		
 		$TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8);
@@ -419,6 +431,7 @@ class Export extends CI_Controller {
 
 		$puskes = $this->input->post('puskes'); 
 		$ruang = $this->input->post('ruang'); 
+		$tanggal_export = $this->input->post('filter_tanggal'); 
 		if(empty($puskes) or $puskes == 'Pilih Puskesmas'){	
 				$kode='P '.$this->session->userdata('puskesmas');
 				$kd_prov = $this->inv_barang_model->get_nama('value','cl_province','code',substr($kode, 2,2));
@@ -438,7 +451,13 @@ class Export extends CI_Controller {
 		}else{
 			$namaruang = $this->input->post('ruang');
 		}
-		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb);
+		if(empty($tanggal_export) or $tanggal_export == ''){
+			$tanggal_export = date('d-m-Y');
+		}else{
+			$tanggals = explode("-", $this->input->post('filter_tanggal'));
+			$tanggal_export = $tanggals[2].'-'.$tanggals[1].'-'.$tanggals[0];
+		}
+		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb,'tanggal_export'=>$tanggal_export);
 		$dir = getcwd().'/';
 		$template = $dir.'public/files/template/inventory/kibb.xlsx';		
 		$TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8);
@@ -566,6 +585,7 @@ class Export extends CI_Controller {
 		
 		$puskes = $this->input->post('puskes'); 
 		$ruang = $this->input->post('ruang'); 
+		$tanggal_export = $this->input->post('filter_tanggal'); 
 		if(empty($puskes) or $puskes == 'Pilih Puskesmas'){	
 				$kode='P '.$this->session->userdata('puskesmas');
 				$kd_prov = $this->inv_barang_model->get_nama('value','cl_province','code',substr($kode, 2,2));
@@ -585,7 +605,13 @@ class Export extends CI_Controller {
 		}else{
 			$namaruang = $this->input->post('ruang');
 		}
-		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb);
+		if(empty($tanggal_export) or $tanggal_export == ''){
+			$tanggal_export = date('d-m-Y');
+		}else{
+			$tanggals = explode("-", $this->input->post('filter_tanggal'));
+			$tanggal_export = $tanggals[2].'-'.$tanggals[1].'-'.$tanggals[0];
+		}
+		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb,'tanggal_export'=>$tanggal_export);
 		$dir = getcwd().'/';
 		$template = $dir.'public/files/template/inventory/kibc.xlsx';		
 		$TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8);
@@ -708,6 +734,7 @@ class Export extends CI_Controller {
 
 		$puskes = $this->input->post('puskes'); 
 		$ruang = $this->input->post('ruang'); 
+		$tanggal_export = $this->input->post('filter_tanggal'); 
 		if(empty($puskes) or $puskes == 'Pilih Puskesmas'){	
 				$kode='P '.$this->session->userdata('puskesmas');
 				$kd_prov = $this->inv_barang_model->get_nama('value','cl_province','code',substr($kode, 2,2));
@@ -727,7 +754,13 @@ class Export extends CI_Controller {
 		}else{
 			$namaruang = $this->input->post('ruang');
 		}
-		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb);
+		if(empty($tanggal_export) or $tanggal_export == ''){
+			$tanggal_export = date('d-m-Y');
+		}else{
+			$tanggals = explode("-", $this->input->post('filter_tanggal'));
+			$tanggal_export = $tanggals[2].'-'.$tanggals[1].'-'.$tanggals[0];
+		}
+		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb,'tanggal_export'=>$tanggal_export);
 		$dir = getcwd().'/';
 		$template = $dir.'public/files/template/inventory/kibd.xlsx';		
 		$TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8);
@@ -817,6 +850,7 @@ class Export extends CI_Controller {
 		}else{
 			$this->db->where("id_cl_phc",$this->session->userdata('filter_cl_phc'));
 		}
+
 		$rows = $this->inv_barang_model->get_data_golongan_E();
 		$no=1;
 		$data_tabel = array();
@@ -853,7 +887,8 @@ class Export extends CI_Controller {
 
 		
 		$puskes = $this->input->post('puskes'); 
-		$ruang = $this->input->post('ruang'); 
+		$ruang = $this->input->post('ruang');
+		$tanggal_export = $this->input->post('filter_tanggal');  
 		if(empty($puskes) or $puskes == 'Pilih Puskesmas'){	
 				$kode='P '.$this->session->userdata('puskesmas');
 				$kd_prov = $this->inv_barang_model->get_nama('value','cl_province','code',substr($kode, 2,2));
@@ -873,7 +908,13 @@ class Export extends CI_Controller {
 		}else{
 			$namaruang = $this->input->post('ruang');
 		}
-		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb);
+		if(empty($tanggal_export) or $tanggal_export == ''){
+			$tanggal_export = date('d-m-Y');
+		}else{
+			$tanggals = explode("-", $this->input->post('filter_tanggal'));
+			$tanggal_export = $tanggals[2].'-'.$tanggals[1].'-'.$tanggals[0];
+		}
+		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb,'tanggal_export'=>$tanggal_export);
 		$dir = getcwd().'/';
 		$template = $dir.'public/files/template/inventory/kibe.xlsx';		
 		$TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8);
@@ -1000,6 +1041,7 @@ class Export extends CI_Controller {
 		
 		$puskes = $this->input->post('puskes'); 
 		$ruang = $this->input->post('ruang'); 
+		$tanggal_export = $this->input->post('filter_tanggal'); 
 		if(empty($puskes) or $puskes == 'Pilih Puskesmas'){	
 				$kode='P '.$this->session->userdata('puskesmas');
 				$kd_prov = $this->inv_barang_model->get_nama('value','cl_province','code',substr($kode, 2,2));
@@ -1019,7 +1061,13 @@ class Export extends CI_Controller {
 		}else{
 			$namaruang = $this->input->post('ruang');
 		}
-		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb);
+		if(empty($tanggal_export) or $tanggal_export == ''){
+			$tanggal_export = date('d-m-Y');
+		}else{
+			$tanggals = explode("-", $this->input->post('filter_tanggal'));
+			$tanggal_export = $tanggals[2].'-'.$tanggals[1].'-'.$tanggals[0];
+		}
+		$data_puskesmas[] = array('kode' => $kode,'namaruang' => $namaruang,'kd_prov' => $kd_prov,'kd_kab' => $kd_kab,'kd_kec' => $kd_kec,'kd_upb' => $kd_upb,'tanggal_export'=>$tanggal_export);
 		$dir = getcwd().'/';
 		$template = $dir.'public/files/template/inventory/kibf.xlsx';		
 		$TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8);
