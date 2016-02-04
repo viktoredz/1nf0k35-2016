@@ -1,11 +1,8 @@
-ALTER TABLE `inv_permohonan_barang_item` 
-ADD COLUMN `harga` DOUBLE(20,2) NULL AFTER `code_cl_phc`,
-ADD COLUMN `merk_tipe` VARCHAR(100) NULL AFTER `harga`,
-ADD COLUMN `rekening` VARCHAR(45) NULL AFTER `merk_tipe`;
-
+ALTER TABLE `inv_pengadaan` 
+ADD COLUMN `nomor_kwitansi` VARCHAR(50) NULL AFTER `nomor_kontrak`,
+ADD COLUMN `tgl_kwitansi` DATE NULL AFTER `nomor_kwitansi`;
 
 TRUNCATE `app_files`;
-
 INSERT INTO `app_files` (`id`, `lang`, `filename`, `module`, `id_theme`) VALUES
 (1, 'ina', 'Home', 'morganisasi', 2),
 (3, 'ina', 'Permohonan', 'permohonan', 2),
@@ -194,78 +191,18 @@ INSERT INTO `app_files` (`id`, `lang`, `filename`, `module`, `id_theme`) VALUES
 (123, 'ina', 'L P L P O', 'inventory/lap_lplpo', 2),
 (123, 'en', 'L P L P O', 'inventory/lap_lplpo', 2),
 (124, 'ina', 'R K B U', 'inventory/lap_rkbu', 2),
-(124, 'en', 'R K B U', 'inventory/lap_rkbu', 2);
+(124, 'en', 'R K B U', 'inventory/lap_rkbu', 2),
+(125, 'ina', 'Lap. Pengadaan Barang', 'inventory/lap_pengadaan', 2),
+(125, 'en', 'Lap. Pengadaan Barang', 'inventory/lap_pengadaan', 2);
 
-TRUNCATE `app_menus`;
-
-INSERT INTO `app_menus` (`position`, `id`, `sub_id`, `sort`, `file_id`, `id_theme`) VALUES
-(1, 76, 26, 4, 63, 2),
-(1, 13, 10, 6, 62, 2),
-(1, 12, 10, 2, 61, 2),
-(1, 79, 1, 1, 60, 2),
-(1, 10, 0, 3, 59, 2),
-(1, 8, 0, 1, 57, 2),
-(1, 7, 6, 2, 56, 2),
-(1, 2, 1, 0, 1, 2),
-(1, 9, 8, 1, 58, 2),
-(1, 15, 10, 4, 64, 2),
-(1, 6, 0, 4, 55, 2),
-(1, 1, 0, 0, 39, 2),
-(1, 3, 1, 2, 40, 2),
-(1, 4, 0, 5, 74, 2),
-(1, 17, 0, 2, 41, 2),
-(1, 5, 4, 0, 54, 2),
-(1, 77, 6, 1, 121, 2),
-(1, 19, 0, 7, 49, 2),
-(1, 20, 19, 0, 50, 2),
-(1, 21, 19, 4, 2, 2),
-(1, 22, 19, 2, 37, 2),
-(1, 23, 19, 3, 38, 2),
-(1, 24, 19, 5, 36, 2),
-(1, 25, 19, 1, 75, 2),
-(1, 26, 0, 6, 6, 2),
-(1, 27, 26, 7, 52, 2),
-(1, 28, 26, 6, 67, 2),
-(1, 29, 26, 9, 68, 2),
-(1, 30, 26, 10, 69, 2),
-(1, 31, 26, 8, 70, 2),
-(1, 32, 26, 11, 71, 2),
-(1, 33, 26, 0, 72, 2),
-(1, 72, 10, 3, 117, 2),
-(1, 37, 8, 3, 76, 2),
-(1, 36, 8, 0, 77, 2),
-(1, 38, 6, 4, 80, 2),
-(1, 39, 10, 5, 83, 2),
-(1, 40, 26, 12, 84, 2),
-(1, 41, 26, 1, 85, 2),
-(1, 42, 26, 5, 86, 2),
-(1, 43, 26, 19, 89, 2),
-(1, 44, 26, 18, 87, 2),
-(1, 45, 26, 20, 88, 2),
-(1, 46, 26, 21, 90, 2),
-(1, 47, 26, 13, 91, 2),
-(1, 48, 26, 15, 92, 2),
-(1, 49, 26, 16, 93, 2),
-(1, 50, 26, 17, 94, 2),
-(1, 51, 26, 14, 95, 2),
-(1, 81, 17, 7, 124, 2),
-(1, 80, 17, 8, 123, 2),
-(1, 78, 8, 2, 122, 2),
-(1, 62, 8, 4, 106, 2),
-(1, 63, 17, 0, 107, 2),
-(1, 64, 17, 1, 108, 2),
-(1, 65, 17, 2, 109, 2),
-(1, 66, 17, 3, 110, 2),
-(1, 67, 17, 4, 111, 2),
-(1, 68, 17, 5, 112, 2),
-(1, 69, 17, 6, 113, 2),
-(1, 71, 6, 0, 115, 2),
-(1, 73, 10, 1, 116, 2),
-(1, 74, 26, 3, 118, 2),
-(1, 75, 26, 2, 119, 2);
+TRUNCATE `app_theme`;
+INSERT INTO `app_theme` (`id_theme`, `name`, `folder`) VALUES
+(1, 'Offline', 'themes/offline/'),
+(2, 'SIK', 'themes/sik/'),
+(3, 'Admin Panel', 'themes/admin/'),
+(4, 'Dashboard', 'themes/dashboard/');
 
 TRUNCATE `app_users_access`;
-
 INSERT INTO `app_users_access` (`file_id`, `level_id`, `doshow`, `doadd`, `doedit`, `dodel`) VALUES
 (31, 'admin', 1, 1, 1, 1),
 (6, 'admin', 1, 1, 1, 1),
@@ -319,6 +256,8 @@ INSERT INTO `app_users_access` (`file_id`, `level_id`, `doshow`, `doadd`, `doedi
 (64, 'administrator', 1, 1, 1, 1),
 (63, 'administrator', 1, 1, 1, 1),
 (119, 'sms', 1, 1, 1, 1),
+(125, 'administrator', 1, 1, 1, 1),
+(125, 'inventory', 1, 1, 1, 1),
 (124, 'inventory', 1, 1, 1, 1),
 (123, 'inventory', 1, 1, 1, 1),
 (122, 'inventory', 1, 1, 1, 1),
@@ -352,11 +291,11 @@ INSERT INTO `app_users_access` (`file_id`, `level_id`, `doshow`, `doadd`, `doedi
 (41, 'inventory', 1, 1, 1, 1),
 (40, 'inventory', 1, 1, 1, 1),
 (39, 'inventory', 1, 1, 1, 1),
-(6, 'inventory', 1, 1, 1, 1),
 (1, 'inventory', 1, 1, 1, 1),
 (3, 'inventory', 1, 1, 1, 1),
 (4, 'inventory', 1, 1, 1, 1),
 (5, 'inventory', 1, 1, 1, 1),
+(6, 'inventory', 1, 1, 1, 1),
 (118, 'sms', 1, 1, 1, 1),
 (117, 'sms', 1, 1, 1, 1),
 (116, 'sms', 1, 1, 1, 1),
