@@ -398,7 +398,7 @@ class Permohonanbarang extends CI_Controller {
 
 			$kode 	= $this->inv_ruangan_model->getSelectedData('mst_inv_ruangan',$code_cl_phc)->result();
 
-			'<option value="">Pilih Ruangan</option>';
+				echo '<option value="">Pilih Ruangan</option>';
 			foreach($kode as $kode) :
 				echo $select = $kode->id_mst_inv_ruangan == $id_mst_inv_ruangan ? 'selected' : '';
 				echo '<option value="'.$kode->id_mst_inv_ruangan.'" '.$select.'>' . $kode->nama_ruangan . '</option>';
@@ -431,7 +431,6 @@ class Permohonanbarang extends CI_Controller {
         $this->form_validation->set_rules('tgl', 'Tanggal Permohonan', 'trim|required');
         $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required');
         $this->form_validation->set_rules('codepus', 'Puskesmas', 'trim|required');
-        $this->form_validation->set_rules('ruangan', 'Ruangan', 'trim|required');
 
 		if($this->form_validation->run()== FALSE){
 			$data['title_group'] = "Inventory";
@@ -615,6 +614,7 @@ class Permohonanbarang extends CI_Controller {
         $this->form_validation->set_rules('code_mst_inv_barang', 'Kode Barang', 'trim|required');
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'trim|required');
         $this->form_validation->set_rules('jumlah', 'Jumlah', 'trim|required');
+        $this->form_validation->set_rules('harga', 'Harga', 'trim|required');
         $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required');
 
 		if($this->form_validation->run()== FALSE){
@@ -628,6 +628,9 @@ class Permohonanbarang extends CI_Controller {
 				'code_mst_inv_barang' => $this->input->post('code_mst_inv_barang'),
 				'nama_barang' => $this->input->post('nama_barang'),
 				'jumlah' => $this->input->post('jumlah'),
+				'harga' => $this->input->post('harga'),
+				'rekening' => $this->input->post('rekening'),
+				'merk_tipe' => $this->input->post('merk_tipe'),
 				'keterangan' => $this->input->post('keterangan'),
 				'code_cl_phc' => $code_cl_phc,
 				'id_inv_permohonan_barang' => $kode
@@ -652,6 +655,7 @@ class Permohonanbarang extends CI_Controller {
 		$this->form_validation->set_rules('code_mst_inv_barang', 'Kode Barang', 'trim|required');
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'trim|required');
         $this->form_validation->set_rules('jumlah', 'Jumlah', 'trim|required');
+        $this->form_validation->set_rules('harga', 'Harga', 'trim|required');
         $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required');
 
 		if($this->form_validation->run()== FALSE){
@@ -668,6 +672,9 @@ class Permohonanbarang extends CI_Controller {
 				'code_mst_inv_barang' 	=> $this->input->post('code_mst_inv_barang'),
 				'nama_barang' 			=> $this->input->post('nama_barang'),
 				'jumlah' 				=> $this->input->post('jumlah'),
+				'harga' 				=> $this->input->post('harga'),
+				'rekening' 				=> $this->input->post('rekening'),
+				'merk_tipe' 			=> $this->input->post('merk_tipe'),
 				'keterangan' 			=> $this->input->post('keterangan')
 			);
 

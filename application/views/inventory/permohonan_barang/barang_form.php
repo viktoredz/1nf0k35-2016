@@ -28,6 +28,9 @@
             data.append('jumlah', $('input[name="jumlah"]').val());
             data.append('nama_barang', $('input[name="nama_barang"]').val());
             data.append('code_mst_inv_barang', $('#v_kode_barang').val());
+            data.append('harga', $('#harga').val());
+            data.append('merk_tipe', $('#merk_tipe').val());
+            data.append('rekening', $('#rekening').val());
             data.append('keterangan', $('#keterangan').val());
             $.ajax({
                 cache : false,
@@ -102,8 +105,33 @@
             $("#v_nama_barang").val(res[1]);
             $("#v_kode_barang").val(res[0].replace(/\./g,""));
         });
+
+        $("#harga").change(function(){
+            var jumlah = document.getElementById("jumlah").value;
+            var harga = document.getElementById("harga").value;
+            if((jumlah=="")||jumlah=="0"){
+              var subtotal = harga;
+            }else{
+              var subtotal = jumlah*harga;  
+            }
+            document.getElementById("subtotal").value = toRp(subtotal);
+        });
+        $("#jumlah").change(function(){
+            var jumlah = document.getElementById("jumlah").value;
+            var harga = document.getElementById("harga").value;
+            var subtotal =jumlah*harga;
+            document.getElementById("subtotal").value = toRp(subtotal);
+        });
+            document.getElementById("subtotal").value = document.getElementById("jumlah").value * document.getElementById("harga").value;
     });
-</script>
+function toRp(a,b,c,d,e){
+    e=function(f){return f.split('').reverse().join('')};b=e(parseInt(a,10).toString());
+    for(c=0,d='';c<b.length;c++){
+      d+=b[c];if((c+1)%3===0&&c!==(b.length-1)){d+='.';}
+    }
+    return'Rp.\t'+e(d)+',00'
+  }
+     </script>
 
 <div style="padding:15px">
   <div id="notice" class="alert alert-success alert-dismissable" <?php if ($notice==""){ echo 'style="display:none"';} ?> >
@@ -169,11 +197,45 @@
             </div>
             <div class="form-group">
               <label>Jumlah</label>
-              <input type="number" class="form-control" name="jumlah" placeholder="Jumlah" value="<?php 
+              <input type="number" class="form-control" name="jumlah" id="jumlah" placeholder="Jumlah" value="<?php 
                 if(set_value('jumlah')=="" && isset($jumlah)){
                   echo $jumlah;
                 }else{
                   echo  set_value('jumlah');
+                }
+                ?>">
+            </div>
+            <div class="form-group">
+              <label>Harga</label>
+              <input type="number" class="form-control" name="harga" id="harga" placeholder="Harga" value="<?php 
+                if(set_value('harga')=="" && isset($harga)){
+                  echo $harga;
+                }else{
+                  echo  set_value('harga');
+                }
+                ?>">
+            </div>
+            <div class="form-group">
+              <label>Total harga</label>
+              <input type="text" class="form-control" name="subtotal" id="subtotal" disabled>
+            </div>
+            <div class="form-group">
+              <label>Merek Tipe</label>
+              <input type="text" class="form-control" name="merk_tipe" id="merk_tipe" placeholder="Merek Tipe" value="<?php 
+                if(set_value('merk_tipe')=="" && isset($merk_tipe)){
+                  echo $merk_tipe;
+                }else{
+                  echo  set_value('merk_tipe');
+                }
+                ?>">
+            </div>
+            <div class="form-group">
+              <label>Rekening</label>
+              <input type="text" class="form-control" name="rekening" id="rekening" placeholder="Rekening" value="<?php 
+                if(set_value('rekening')=="" && isset($rekening)){
+                  echo $rekening;
+                }else{
+                  echo  set_value('rekening');
                 }
                 ?>">
             </div>

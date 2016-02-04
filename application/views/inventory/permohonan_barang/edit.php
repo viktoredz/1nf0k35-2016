@@ -19,7 +19,7 @@
     <div class="box box-primary">
       <div class="box-body">
         <div class="form-group">
-          <label>Tanggal</label>
+          <label>Tanggal Permohonan</label>
           <div id='tgl' name="tgl" value="<?php
               echo date("Y-m-d",strtotime($tanggal_permohonan));
             ?>"></div>

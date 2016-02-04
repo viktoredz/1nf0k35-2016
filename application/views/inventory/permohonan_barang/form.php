@@ -19,7 +19,7 @@
     <div class="box box-primary">
       <div class="box-body">
         <div class="form-group">
-          <label>Tanggal</label>
+          <label>Tanggal Permohonan</label>
           <div id='tgl' name="tgl" value="<?php
               echo (set_value('tgl')!="") ? date("Y-m-d",strtotime(set_value('tgl'))) : "";
             ?>"></div>
@@ -27,8 +27,7 @@
         <div class="form-group">
           <label>Puskesmas<h1></h1></label>
           <select  name="codepus" id="puskesmas" class="form-control">
-              <option value="">
-              </option>
+          <option value="">Pilih Puskesmas</option>
               <?php foreach($kodepuskesmas as $pus) : ?>
                 <?php $select = $pus->code == set_value('codepus') ? 'selected' : '' ?>
                 <option value="<?php echo $pus->code ?>" <?php echo $select ?>><?php echo $pus->value ?></option>
