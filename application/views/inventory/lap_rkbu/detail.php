@@ -79,7 +79,7 @@
 			theme: theme, 
 			height: '31px', width: '100%'
  		});	
-    	$("#tgl1").jqxDateTimeInput('setDate', new Date(date.getFullYear(), date.getMonth(), 29));
+    	$("#tgl1").jqxDateTimeInput('setDate', new Date(date.getFullYear(), date.getMonth()+1,0));
 
 	});
 	$('#code_cl_phc').change(function(){
