@@ -1,6 +1,10 @@
 ALTER TABLE `inv_pengadaan` 
 ADD COLUMN `nomor_kwitansi` VARCHAR(50) NULL AFTER `nomor_kontrak`,
-ADD COLUMN `tgl_kwitansi` DATE NULL AFTER `nomor_kwitansi`;
+ADD COLUMN `tgl_kwitansi` DATE NULL AFTER `nomor_kwitansi`,
+ADD COLUMN `pilihan_satuan_barang` VARCHAR(30) NULL AFTER `nomor_kwitansi`;
+
+ALTER TABLE `inv_permohonan_barang_item` 
+ADD COLUMN `pilihan_satuan_barang` VARCHAR(30) NULL AFTER `nama_barang`;
 
 TRUNCATE `app_files`;
 INSERT INTO `app_files` (`id`, `lang`, `filename`, `module`, `id_theme`) VALUES
