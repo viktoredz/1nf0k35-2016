@@ -7,6 +7,7 @@ class Pengadaanbarang_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		$this->lang	  = $this->config->item('language');
+
     }
     
     function get_data_status()
@@ -186,6 +187,8 @@ WHERE inv_inventaris_barang.barang_kembar_proc = (SELECT barang_kembar_proc FROM
 		$data['pilihan_status_pengadaan']	= $this->input->post('status');
 		$data['keterangan']		            = $this->input->post('keterangan');
         $data['nomor_kontrak']              = $this->input->post('nomor_kontrak');
+        $data['tgl_kwitansi']               = date("Y-m-d",strtotime($this->input->post('tgl1')));
+        $data['nomor_kwitansi']             = $this->input->post('nomor_kwitansi');
 		$data['waktu_dibuat']		        = date('Y-m-d H:i:s');
         $data['terakhir_diubah']            = "0000-00-00 00:00:00";
 		$data['jumlah_unit']      	        = 0;
@@ -228,6 +231,8 @@ WHERE inv_inventaris_barang.barang_kembar_proc = (SELECT barang_kembar_proc FROM
         $data['pilihan_status_pengadaan']   = $this->input->post('status');
         $data['keterangan']                 = $this->input->post('keterangan');
         $data['nomor_kontrak']              = $this->input->post('nomor_kontrak');
+        $data['tgl_kwitansi']               = date("Y-m-d",strtotime($this->input->post('tgl1')));
+        $data['nomor_kwitansi']             = $this->input->post('nomor_kwitansi');
         $data['terakhir_diubah']            = date('Y-m-d H:i:s');
 		$this->db->where('id_pengadaan',$kode);
 

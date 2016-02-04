@@ -19,7 +19,7 @@
     <div class="box box-primary">
       <div class="box-body">
         <div class="form-group">
-          <label>Tanggal</label>
+          <label>Tanggal Pengadaan</label>
           <div id='tgl' name="tgl" value="<?php
               echo (set_value('tgl')!="") ? date("Y-m-d",strtotime(set_value('tgl'))) : "";
             ?>"></div>
@@ -42,6 +42,22 @@
               echo $nokontrak;
             }else{
               echo  set_value('nomor_kontrak');
+            }
+            ?>">
+        </div>
+        <div class="form-group">
+          <label>Tanggal Kwitansi</label>
+          <div id='tgl1' name="tgl1" value="<?php
+              echo (set_value('tgl1')!="") ? date("Y-m-d",strtotime(set_value('tgl1'))) : "";
+            ?>"></div>
+        </div>
+        <div class="form-group">
+          <label>Nomor Kwitansi</label>
+          <input type="text" class="form-control" name="nomor_kwitansi" placeholder="Nomor Kwitansi" value="<?php 
+            if(set_value('nomor_kwitansi')=="" && isset($nomor_kwitansi)){
+              echo $nokontrak;
+            }else{
+              echo  set_value('nomor_kwitansi');
             }
             ?>">
         </div>
@@ -110,6 +126,7 @@ $(function(){
     $("#menu_inventory_pengadaanbarang").addClass("active");
 
     $("#tgl").jqxDateTimeInput({ formatString: 'dd-MM-yyyy', theme: theme});
+    $("#tgl1").jqxDateTimeInput({ formatString: 'dd-MM-yyyy', theme: theme});
 
   });
 </script>

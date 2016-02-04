@@ -59,6 +59,28 @@
           } ?>
         </div>
         <div class="form-group">
+          <label>Tanggal Kwitansi</label><?php if(isset($viewreadonly)){if($action='view'){ 
+            echo "<br>".date("d-m-Y",strtotime($tgl_kwitansi)); }}else{ ?>
+              <div id='tgl1' name="tgl1" disabled value="<?php
+              echo $tgl_kwitansi;;//echo ($tgl_pengadaan!="") ? date("Y-m-d",strtotime($$tgl_pengadaan)) : "";
+            ?>" ></div>
+             <?php  }?>
+        </div>
+        <div class="form-group">
+          <label>Nomor Kwitansi</label>
+          <?php if(!isset($viewreadonly)){ ?>
+          <input type="text" class="form-control" name="nomor_kwitansi" placeholder="Nomor Kwitansi" value="<?php 
+            if(set_value('nomor_kwitansi')=="" && isset($nomor_kwitansi)){
+              echo $nomor_kwitansi;
+            }else{
+              echo  set_value('nomor_kwitansi');
+            }
+            ?>">
+          <?php }else{ 
+              echo "<br>".$nomor_kwitansi;
+          } ?>
+        </div>
+        <div class="form-group">
           <label>Keterangan</label>
           <?php if(!isset($viewreadonly)){ ?>
           <textarea class="form-control" name="keterangan" placeholder="Keterangan"><?php 
@@ -148,6 +170,7 @@ $(function(){
 
     <?php if(!isset($viewreadonly)){?>
       $("#tgl").jqxDateTimeInput({ formatString: 'dd-MM-yyyy', theme: theme});
+      $("#tgl1").jqxDateTimeInput({ formatString: 'dd-MM-yyyy', theme: theme});
     <?php } ?>
   });
 
