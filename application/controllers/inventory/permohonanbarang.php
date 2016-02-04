@@ -8,6 +8,7 @@ class Permohonanbarang extends CI_Controller {
 		require_once(APPPATH.'third_party/tbs_plugin_opentbs_1.8.0/tbs_plugin_opentbs.php');
 
 		$this->load->model('inventory/permohonanbarang_model');
+		$this->load->model('inventory/inv_barang_model');
 		$this->load->model('mst/puskesmas_model');
 		$this->load->model('inventory/inv_ruangan_model');
 		$this->load->model('mst/invbarang_model');
@@ -616,11 +617,12 @@ class Permohonanbarang extends CI_Controller {
         $this->form_validation->set_rules('jumlah', 'Jumlah', 'trim|required');
         $this->form_validation->set_rules('harga', 'Harga', 'trim|required');
         $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required');
+        $this->form_validation->set_rules('pilihan_satuan_barang', 'Pilihan Satuan Barang', 'trim|required');
 
 		if($this->form_validation->run()== FALSE){
 			$data['kodebarang']		= $this->permohonanbarang_model->get_databarang();
 			$data['notice']			= validation_errors();
-
+			$data['pilihan_satuan_barang_']	= $this->inv_barang_model->get_data_pilihan('satuan');
 			die($this->parser->parse('inventory/permohonan_barang/barang_form', $data));
 		}else{
 			$values = array(
@@ -632,6 +634,7 @@ class Permohonanbarang extends CI_Controller {
 				'rekening' => $this->input->post('rekening'),
 				'merk_tipe' => $this->input->post('merk_tipe'),
 				'keterangan' => $this->input->post('keterangan'),
+				'pilihan_satuan_barang' => $this->input->post('pilihan_satuan_barang'),
 				'code_cl_phc' => $code_cl_phc,
 				'id_inv_permohonan_barang' => $kode
 			);
@@ -657,6 +660,7 @@ class Permohonanbarang extends CI_Controller {
         $this->form_validation->set_rules('jumlah', 'Jumlah', 'trim|required');
         $this->form_validation->set_rules('harga', 'Harga', 'trim|required');
         $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required');
+        $this->form_validation->set_rules('pilihan_satuan_barang', 'Pilihan Satuan Barang', 'trim|required');
 
 		if($this->form_validation->run()== FALSE){
 			$data = $this->permohonanbarang_model->get_data_barang_edit($code_cl_phc, $kode, $id_inv_permohonan_barang_item); 
@@ -665,6 +669,7 @@ class Permohonanbarang extends CI_Controller {
 			$data['action']			= "edit";
 			$data['kode']			= $kode;
 			$data['code_cl_phc']	= $code_cl_phc;
+			$data['pilihan_satuan_barang_']	= $this->inv_barang_model->get_data_pilihan('satuan');
 			$data['disable']			= "disable";
 			die($this->parser->parse('inventory/permohonan_barang/barang_form', $data));
 		}else{
@@ -675,6 +680,7 @@ class Permohonanbarang extends CI_Controller {
 				'harga' 				=> $this->input->post('harga'),
 				'rekening' 				=> $this->input->post('rekening'),
 				'merk_tipe' 			=> $this->input->post('merk_tipe'),
+				'pilihan_satuan_barang' => $this->input->post('pilihan_satuan_barang'),
 				'keterangan' 			=> $this->input->post('keterangan')
 			);
 

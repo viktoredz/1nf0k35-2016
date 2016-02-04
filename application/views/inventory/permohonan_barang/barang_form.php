@@ -31,6 +31,7 @@
             data.append('harga', $('#harga').val());
             data.append('merk_tipe', $('#merk_tipe').val());
             data.append('rekening', $('#rekening').val());
+            data.append('pilihan_satuan_barang', $('#pilihan_satuan_barang').val());
             data.append('keterangan', $('#keterangan').val());
             $.ajax({
                 cache : false,
@@ -204,6 +205,17 @@ function toRp(a,b,c,d,e){
                   echo  set_value('jumlah');
                 }
                 ?>">
+            </div>
+            <div class="form-group">
+              <label>Satuan</label>
+              <select  name="pilihan_satuan_barang" type="text" class="form-control" id="pilihan_satuan_barang">
+                <option value="">Pilih Satuan Barang</option>
+                </option>
+                <?php foreach($pilihan_satuan_barang_ as $barang) : ?>
+                  <?php $select = $barang->code == $pilihan_satuan_barang ? 'selected' : '' ?>
+                  <option value="<?php echo $barang->code ?>" <?php echo $select ?>><?php echo $barang->value ?></option>
+                <?php endforeach ?>
+            </select>
             </div>
             <div class="form-group">
               <label>Harga</label>
