@@ -170,7 +170,11 @@ class Lap_pengadaan extends CI_Controller {
 			$tanggals1 = explode("-", $this->input->post('filter_tanggal1'));
 			$tanggal_export1 = $tanggals1[2].'-'.$this->bulan($tanggals1[1]).'-'.$tanggals1[0];
 		}
-		$data_puskesmas[] = array('tanggal_export'=>$tanggal_export,'tanggal_export1'=>$tanggal_export1);
+		$kode_sess=$this->session->userdata('puskesmas');
+		$kd_prov = $this->inv_barang_model->get_nama('value','cl_province','code',substr($kode_sess, 0,2));
+		$kd_kab  = $this->inv_barang_model->get_nama('value','cl_district','code',substr($kode_sess, 0,4));
+		
+		$data_puskesmas[] = array('tanggal_export'=>$tanggal_export,'tanggal_export1'=>$tanggal_export1,'kd_kab' => $kd_kab,'kd_prov' => $kd_prov);
 		$dir = getcwd().'/';
 		$template = $dir.'public/files/template/inventory/lap_pengadaan.xlsx';		
 		$TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8);

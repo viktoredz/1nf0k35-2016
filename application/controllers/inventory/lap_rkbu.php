@@ -152,11 +152,6 @@ class Lap_rkbu extends CI_Controller {
 		$data_tabel[] = array('no'=> '4', 'tgl'=>'10/10/2010' , 'ruangan'=>'Hill'      , 'jumlah'=>'19', 'keterangan'=>'bagus', 'status'=>'bagus');
 		*/
 		$puskes = $this->input->post('puskes'); 
-		if(empty($puskes) or $puskes == 'Pilih Puskesmas'){
-			
-		}else{
-			$nama = $this->input->post('puskes');
-		}
 		if(empty($puskes) or $puskes == 'Pilih Puskesmas'){	
 				$nama = 'Semua Data Puskesmas';
 		}else{
