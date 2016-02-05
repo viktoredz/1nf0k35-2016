@@ -16,9 +16,7 @@ class Lap_pengadaan_model extends CI_Model {
 		$q = $this->db->get('mst_inv_pilihan');
 		return $q;
 	}
-	function get_data($start=0,$limit=999999,$options=array())
-    {
-    	$this->db->where('inv_inventaris_barang.id_pengadaan != ', '0');
+	function get_data($start=0,$limit=999999,$options=array()){
         $this->db->select("inv_inventaris_barang.id_inventaris_barang,inv_inventaris_barang.id_mst_inv_barang,inv_inventaris_barang.nama_barang,inv_inventaris_barang.harga,inv_inventaris_barang.barang_kembar_proc,
                         COUNT(inv_inventaris_barang.id_mst_inv_barang) AS jumlah,
                         inv_inventaris_barang.harga AS hargasatuan,
@@ -29,6 +27,9 @@ class Lap_pengadaan_model extends CI_Model {
                         inv_pengadaan.*");
         $this->db->join('inv_pengadaan', "inv_inventaris_barang.id_pengadaan = inv_pengadaan.id_pengadaan",'right');
         $this->db->join('mst_inv_pilihan', "inv_inventaris_barang.pilihan_status_invetaris=mst_inv_pilihan.code and mst_inv_pilihan.tipe='status_inventaris'");
+        $this->db->where('inv_pengadaan.tgl_pengadaan >=', $this->input->post('filter_tanggal'));
+		$this->db->where('inv_pengadaan.tgl_pengadaan <=', $this->input->post('filter_tanggal1'));
+		$this->db->where('inv_inventaris_barang.id_pengadaan != ', '0');
         $this->db->group_by("inv_inventaris_barang.barang_kembar_proc");
         $query =$this->db->get('inv_inventaris_barang',$limit,$start);
         return $query->result();
