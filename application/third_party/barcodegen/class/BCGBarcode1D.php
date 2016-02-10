@@ -40,7 +40,7 @@ abstract class BCGBarcode1D extends BCGBarcode {
         $this->defaultLabel = new BCGLabel();
         $this->defaultLabel->setPosition(BCGLabel::POSITION_BOTTOM);
         $this->setLabel(self::AUTO_LABEL);
-        $this->setFont(new BCGFontPhp(5));
+        $this->setFont(new BCGFontPhp(2));
 
         $this->text = '';
         $this->checksumValue = false;
