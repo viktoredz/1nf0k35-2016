@@ -6,3 +6,8 @@ public/files/hasil/hasil_export_56554031c3347.xlsx
 public/files/
 QR_CACHE_DIRframe_2.dat
 QR_LOG_DIRtest.png-errors.txt
+application/third_party/phpqrcode/cache/
+application/third_party/phpqrcode/temp/
+public/temp/
+application/controllers/inventory/temp/
+test.png
