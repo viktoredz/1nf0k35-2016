@@ -13,7 +13,19 @@ class Permohonanbarang extends CI_Controller {
 		$this->load->model('inventory/inv_ruangan_model');
 		$this->load->model('mst/invbarang_model');
 	}
-
+	public function total_permohonan($id,$puskesmas){
+		$this->db->where('code_cl_phc',$puskesmas);
+		$this->db->where('id_inv_permohonan_barang',$id);
+		$this->db->select('sum(jumlah) as totaljumlah,sum(jumlah*harga) as totalharga');
+		$query = $this->db->get('inv_permohonan_barang_item')->result();
+		foreach ($query as $q) {
+			$totalpengadaan[] = array(
+				'totaljumlah' => $q->totaljumlah, 
+				'totalharga' => 'Rp. '.number_format($q->totalharga,2), 
+			);
+			echo json_encode($totalpengadaan);
+		}
+    }
 	function permohonan_export(){
 		
 		$TBS = new clsTinyButStrong;		
@@ -85,6 +97,7 @@ class Permohonanbarang extends CI_Controller {
 				'tgl'		=> $act->tanggal_permohonan,				
 				'ruangan'	=> $act->nama_ruangan,
 				'jumlah'	=> $act->jumlah_unit,
+				'totalharga'=> number_format($act->totalharga,2),
 				'keterangan'=> $act->keterangan,
 				'status'	=> $act->value				
 			);
@@ -166,10 +179,12 @@ class Permohonanbarang extends CI_Controller {
 				'no'							=> $no++,				
 				'nama_barang'   				=> $act->nama_barang,
 				'jumlah'						=> $act->jumlah,
+				'harga'							=> number_format($act->harga,2),
+				'subtotal'						=> number_format($act->harga*$act->jumlah,2),
 				'keterangan'					=> $act->keterangan				
 			);
 		}
-
+		
 		$nama_puskesmas = $this->input->post('nama_puskesmas');
 		if(empty($nama_puskesmas) or $nama_puskesmas == 'Pilih Puskesmas'){
 			$nama = 'Semua Data Puskesmas';
@@ -182,10 +197,13 @@ class Permohonanbarang extends CI_Controller {
 		$puskesmas = $nama;
 		
 		#$data_puskesmas[] = array('nama_puskesmas' => $nama, 'tanggal'=> $tanggal, 'keterangan'=>$keterangan, 'ruang'=>$ruang);
+		$jumlahtotal= $this->permohonanbarang_model->totalharga($this->input->post('kode'),$this->input->post('code_cl_phc'));
 		$data_puskesmas['nama_puskesmas'] = $nama;
 		$data_puskesmas['tanggal'] = $tanggal;
 		$data_puskesmas['ruang'] = $ruang;
 		$data_puskesmas['keterangan'] = $keterangan;
+		$data_puskesmas['totalharga'] = 'Rp. '.number_format($jumlahtotal['totalharga'],2);
+		$data_puskesmas['jumlahunit'] = $jumlahtotal['totaljumlah'];
 		
 		$TBS->ResetVarRef(false);
 		$TBS->VarRef =  &$data_puskesmas;
@@ -343,6 +361,7 @@ class Permohonanbarang extends CI_Controller {
 				'id_inv_permohonan_barang' => $act->id_inv_permohonan_barang,
 				'tanggal_permohonan'	=> $act->tanggal_permohonan,
 				'jumlah_unit'			=> $act->jumlah_unit,
+				'totalharga'			=> number_format($act->totalharga),
 				'nama_ruangan'			=> $act->nama_ruangan,
 				'keterangan'			=> $act->keterangan,
 				'value'					=> $act->value,
@@ -547,6 +566,7 @@ class Permohonanbarang extends CI_Controller {
 		if($this->permohonanbarang_model->delete_entryitem($kode,$code_cl_phc,$kode_item)){
 			$dataupdate['jumlah_unit']= $this->permohonanbarang_model->sum_jumlah_item( $kode,$code_cl_phc);
 			$key['id_inv_permohonan_barang'] = $kode;
+			$key['code_cl_phc'] = $code_cl_phc;
 			$this->db->update("inv_permohonan_barang",$dataupdate,$key);
 			$this->session->set_flashdata('alert', 'Delete data ('.$kode_item.')');
 		}else{
@@ -591,6 +611,8 @@ class Permohonanbarang extends CI_Controller {
 				'nama_barang'   				=> $act->nama_barang,
 				'jumlah'						=> $act->jumlah,
 				'keterangan'					=> $act->keterangan,
+				'harga'							=> number_format($act->harga,2),
+				'subtotal'						=> number_format($act->harga*$act->jumlah,2),
 				'id_inv_permohonan_barang'		=> $act->id_inv_permohonan_barang,
 				'code_mst_inv_barang'   		=> substr(chunk_split($act->code_mst_inv_barang, 2, '.'),0,14),
 				'edit'		=> 1,
@@ -639,8 +661,9 @@ class Permohonanbarang extends CI_Controller {
 				'id_inv_permohonan_barang' => $kode
 			);
 			if($this->db->insert('inv_permohonan_barang_item', $values)){
-				$dataupdate['jumlah_unit']= $this->permohonanbarang_model->sum_jumlah_item( $kode,$code_cl_phc);
+				$dataupdate['jumlah_unit']= $this->permohonanbarang_model->sum_jumlah_item($kode,$code_cl_phc);
 				$key['id_inv_permohonan_barang'] = $kode;
+				$key['code_cl_phc'] = $code_cl_phc;
         		$this->db->update("inv_permohonan_barang",$dataupdate,$key);
 
 				die("OK|");
@@ -687,6 +710,7 @@ class Permohonanbarang extends CI_Controller {
 			if($this->db->update('inv_permohonan_barang_item', $values,array('id_inv_permohonan_barang_item' => $id_inv_permohonan_barang_item,'code_cl_phc'=>$code_cl_phc,'id_inv_permohonan_barang'=>$kode))){
 				$dataupdate['jumlah_unit']= $this->permohonanbarang_model->sum_jumlah_item( $kode,$code_cl_phc);
 				$key['id_inv_permohonan_barang'] = $kode;
+				$key['code_cl_phc'] = $code_cl_phc;
         		$this->db->update("inv_permohonan_barang",$dataupdate,$key);
 				die("OK|");
 			}else{

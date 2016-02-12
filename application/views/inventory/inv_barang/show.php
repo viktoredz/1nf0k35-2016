@@ -149,6 +149,15 @@
 					}
                  }
                 },<?php } ?>
+                { text: 'IMG', align: 'center', editable: false,filtertype: 'none', sortable: false, width: '4%', cellsrenderer: function (row) {
+				    var dataRecord = $("#jqxgrid_barang").jqxGrid('getrowdata', row);
+				    if(dataRecord.delete==1){
+						return "<div style='width:100%;padding-top:2px;text-align:center'><a href='javascript:void(0);'><a href='javascript:void(0);'><img border=0 src='<?php echo base_url(); ?>media/images/barcode.png' onclick='barcode_barang(\""+dataRecord.id_mst_inv_barang+"\",\""+dataRecord.barang_kembar_proc+"\",\""+dataRecord.id_inventaris_barang+"\",\""+dataRecord.id_pengadaan+"\");'></a></div>";
+					}else{
+						return "<div style='width:100%;padding-top:2px;text-align:center'><a href='javascript:void(0);'><a href='javascript:void(0);'><img border=0 src='<?php echo base_url(); ?>media/images/16_lock.gif'></a></div>";
+					}
+                 }
+                },
 				{ text: 'Kode Barang', align: 'center', cellsalign: 'center', editable: false, datafield: 'id_mst_inv_barang', columntype: 'textbox', filtertype: 'textbox', width: '10%' },
 				{ text: 'Register', align: 'center', cellsalign: 'center', editable: false, datafield: 'register', columntype: 'textbox', filtertype: 'textbox', width: '6%' },
 				{ text: 'Nama Barang ', editable: false,datafield: 'nama_barang', columntype: 'textbox', filtertype: 'textbox', width: '22%'},
@@ -1530,7 +1539,19 @@
 			$("#popup_barang #popup_content").html(data);
 		});
 	}
-
+	function barcode_barang(id_barang,barang_kembar_proc,id_inventaris_barang,id_pengadaan){
+		$("#popup_barang #popup_content").html("<div style='text-align:center'><br><br><br><br><img src='<?php echo base_url();?>media/images/indicator.gif' alt='loading content.. '><br>loading</div>");
+		$("#popup_barang").jqxWindow({
+			theme: theme, resizable: false,
+			width: 1000,
+			height: 600,
+			isModal: true, autoOpen: false, modalOpacity: 0.2
+		});
+		$("#popup_barang").jqxWindow('open');
+		$.get("<?php echo base_url().'inventory/inv_barang/edit_barang/';?>" + id_barang+'/'+barang_kembar_proc+'/'+id_inventaris_barang+'/'+"barcode", function(data) {
+			$("#popup_barang #popup_content").html(data);
+		});
+	}
 	function hapus_barang(id_barang,barang_kembar_proc,id_inventaris_barang){
 		$("#popup_barang2 #popup_content2").html("<div style='text-align:center'><br><br><br><br><img src='<?php echo base_url();?>media/images/indicator.gif' alt='loading content.. '><br>loading</div>");
 		$("#popup_barang2").jqxWindow({

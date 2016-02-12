@@ -16,6 +16,18 @@ class Inv_barang_model extends CI_Model {
             return $key->$kolom_sl;
         }
     }
+    function get_foto($id){
+        $this->db->select("*");
+        $this->db->where('id_inventaris_barang',$id);
+        $query=$this->db->get('inv_inventaris_barang_foto');
+        return $query->result();
+    }
+    function doupload($upload_data,$id){
+        $data['namafile'] = $upload_data['file_name'];
+        $data['id_inventaris_barang'] = $id;
+        $this->db->insert('inv_inventaris_barang_foto',$data);
+        return $id;
+    }
     function get_data_status()
     {	
     	$this->db->where("mst_inv_pilihan.tipe",'status_pengadaan');

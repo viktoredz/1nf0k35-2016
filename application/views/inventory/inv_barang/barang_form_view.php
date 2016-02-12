@@ -1,6 +1,7 @@
 
 <script type="text/javascript">
   <?php $kodebarang_ = substr($id_mst_inv_barang, 0,2);
+  if($id_pengadaan!="barcode"){
       if($kodebarang_=='01') {?>  
             $("#status_sertifikat_tanggal").jqxDateTimeInput({ width: '300px', height: '25px' })
 <?php  }else if($kodebarang_=='02') {?>
@@ -15,7 +16,8 @@
 <?php  }else if($kodebarang_=='06') {?>
             $("#dokumen_tanggal2").jqxDateTimeInput({ width: '300px', height: '25px' });
             $("#tanggal_mulai").jqxDateTimeInput({ width: '300px', height: '25px' });
-<?php }?>   
+<?php }
+  }?>   
 
   function close_popup(){
     $("#popup_barang").jqxWindow('close');
@@ -24,10 +26,42 @@
   }
   
     $(function(){
+      timeline_foto();
       $('#btn-close').click(function(){
         close_popup();
+        timeline_foto();
       }); 
+      $("[name='btn_simpan']").click(function(){
+        var data = new FormData();
+        jQuery.each($("[name='filename']")[0].files, function(i, file) {
+          data.append('filename', file);
+        });     
+
+        $.ajax({ 
+          type: "POST",
+          cache: false,
+          contentType: false,
+          processData: false,
+          url: "<?php echo base_url()?>inventory/inv_barang/doupload/{kode}",
+          data: data,
+          success: function(response){
+            var res=response.split("_");
+             if(res[0]=="OK"){
+               timeline_foto();
+               document.getElementById("filename").value = "";
+             }else{
+                alert(res[1]);
+                timeline_foto();
+             }
+          }
+         });    
+      });
     });
+    function timeline_foto(){
+    $.get("<?php echo base_url();?>inventory/inv_barang/timeline_foto/{kode}" , function(response) {
+      $("#timeline-foto").html(response);
+    });
+    }
 </script>
 
 <div style="padding:15px">
@@ -138,6 +172,35 @@
 
     <!--body from edit-->
     <?php 
+      if($id_pengadaan=="barcode"){
+        ?>      
+                <div class="form-group">
+                  <label>QR Code / Barcode</label>
+                  <br>
+                  <img src="<?php echo base_url()?>inventory/qrcodes/draw/<?php echo $id_barang.'/'.$kode; ?>" >
+                  <img src="<?php echo base_url()?>inventory/barcode/draw/<?php echo substr($kd_proc, 1); ?>" style="padding-left:10%">
+                </div>
+                <div class="box-footer">
+                  <div class="form-group">
+                    <label>Galeri Foto</label>
+                    <input type="file" class="form-control" id="filename" name="filename" value="<?php 
+                      if(set_value('filename')=="" && isset($filename)){
+                        echo $filename;
+                      }else{
+                        echo  set_value('filename');
+                      }
+                    ?>"/> 
+                  </div>
+                  <div class="form-group">
+                    <button type="button" name="btn_simpan" class="btn btn-primary"> Upload Foto</button>
+                    <button type="reset" class="btn btn-warning"> Ulang </button>
+                  </div>
+                  <div class="form-group">
+                    <div id="timeline-foto"></div>
+                  </div>
+                 </div>
+       <?php     
+      }else{
     $kodebarang_ = substr($id_mst_inv_barang, 0,2);
     if($kodebarang_=='01') {?>
       <div class="form-group">
@@ -710,7 +773,8 @@
             <?php endforeach ?>
         </select>
       </div>
-      <?php } ?>
+      <?php }
+      } ?>
 <!--end from edit-->
     </div>
     </div>
