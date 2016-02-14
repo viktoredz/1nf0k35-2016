@@ -7,6 +7,7 @@ class Inv_barang extends CI_Controller {
 		require_once(APPPATH.'third_party/tbs_plugin_opentbs_1.8.0/demo/tbs_class.php');
 		require_once(APPPATH.'third_party/tbs_plugin_opentbs_1.8.0/tbs_plugin_opentbs.php');
 		$this->load->model('inventory/inv_barang_model');
+		$this->load->model('inventory/distribusibarang_model');
 		$this->load->model('mst/puskesmas_model');
 		$this->load->model('inventory/inv_ruangan_model');
 		$this->load->model('mst/invbarang_model');
@@ -469,6 +470,19 @@ class Inv_barang extends CI_Controller {
 				);
 				$simpan=$this->db->insert('inv_inventaris_barang', $values);
 				$id= $this->db->insert_id();
+				$id_kembar = $this->distribusibarang_model->get_kembar_id($id);
+				$reg = $this->distribusibarang_model->get_register($id, '', 'P'.$this->session->userdata('puskesmas') );
+
+				$values = array(
+					'id_inventaris_barang' 		=> $id,
+					'id_inventaris_distribusi'	=> 1,
+					'register'			=> $reg,
+					'id_cl_phc'			=> 'P'.$this->session->userdata('puskesmas'),
+					'tgl_distribusi'	=> date('Y-m-d'),
+					'barang_kembar_inv'	=> $id_kembar,
+					'status'			=> 1
+				);
+				$simpan=$this->db->insert('inv_inventaris_distribusi', $values);
 
 	    		$kodebarang_ = substr($id_barang, 0,2);
 		   		if($kodebarang_=='01') {	
